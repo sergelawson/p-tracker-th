@@ -1,1 +1,1 @@
-## Package Tracker Project - MERN Stack
+## Package Tracker Project - MEAN Stack

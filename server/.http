@@ -9,5 +9,5 @@ Content-Type: application/json
     "name": "serge",
     "email": "me@sergioexpert.com",
     "password": "Ataboe14",
-    "passwordConfirm": "Ataboe"
+    "passwordConfirm": "Ataboe14"
 }
