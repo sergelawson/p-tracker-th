@@ -1,6 +1,5 @@
 @host = http://localhost:2002
 
-
 #####
 GET {{host}}/healthcheck
 
@@ -10,9 +9,9 @@ Content-Type: application/json
 
 {
     "name": "serge",
-    "email": "me@sergioexpert.com",
-    "password": "Ataboe14",
-    "passwordConfirm": "Ataboe14"
+    "email": "test@sergioexpert.com",
+    "password": "WelcomPass22",
+    "passwordConfirm": "AtWelcomPass22aboe14"
 }
 
 ##### 
@@ -22,14 +21,15 @@ POST {{host}}/api/sessions
 Content-Type: application/json
 
 {
-    "email": "me@sergioexpert.com",
-    "password": "Ataboe14"
+    "email": "test@sergioexpert.com",
+    "password": "WelcomPass22"
 }
 
 ####
 
-@accesToken = {{login.response.body.X-accesToken}}
-@refreshToken = {{login.response.body.X-refreshToken}}
+@accesToken = {{login.response.body.accesToken}}
+@refreshToken = {{login.response.body.refreshToken}}
+@packageId = {{createPackage.response.body.package_id}}
 
 
 #####
@@ -40,6 +40,65 @@ x-refresh: {{refreshToken}}
 
 #####
 DELETE  {{host}}/api/sessions
+Content-Type: application/json
+Authorization: Bearer {{accesToken}}
+x-refresh: {{refreshToken}}
+
+
+#####
+GET {{host}}/api/packages
+Content-Type: application/json
+Authorization: Bearer {{accesToken}}
+x-refresh: {{refreshToken}}
+
+#####
+GET {{host}}/api/package/{{packageId}}
+Content-Type: application/json
+Authorization: Bearer {{accesToken}}
+x-refresh: {{refreshToken}}
+
+#####
+# @name createPackage
+POST {{host}}/api/package
+Content-Type: application/json
+Authorization: Bearer {{accesToken}}
+x-refresh: {{refreshToken}}
+
+{
+    "description": "Just A Package",
+    "width": 10,
+    "height": 20,
+    "depth": 30,
+    "weight": 100,
+    "from_name": "John Doe",
+    "from_address": "Lake city",
+    "from_location": {
+        "lat": 12,
+        "lng": 2
+    },
+    "to_name": "Jane Stacy",
+    "to_address": "Sweet river road",
+    "to_location": {
+        "lat": 10,
+        "lng": 2.2
+    }
+}
+
+#####
+
+PUT {{host}}/api/package/{{packageId}}
+Content-Type: application/json
+Authorization: Bearer {{accesToken}}
+x-refresh: {{refreshToken}}
+
+{
+    "active_delivery_id": "8454a0ed4eb04f1ad07deca1",
+    "description": "Just A Package, with update info"
+
+}
+
+#####
+DELETE  {{host}}/api/package/{{packageId}}
 Content-Type: application/json
 Authorization: Bearer {{accesToken}}
 x-refresh: {{refreshToken}}

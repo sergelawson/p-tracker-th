@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import { nanoid } from "nanoid";
 import { UserDocument } from "./user.model";
 import { DeliveryDocument } from "./delivery.model";
 
@@ -8,18 +7,18 @@ type LocationType = {
   lng: number;
 };
 export interface PackageInput {
-  user_id: UserDocument["_id"];
-  active_delivery_id: DeliveryDocument["delivery_id"];
-  description: string;
-  weight: number;
-  height: number;
-  depth: number;
-  from_name: string;
-  from_address: string;
-  from_location: LocationType;
-  to_name: string;
-  to_address: string;
-  to_location: LocationType;
+  user_id?: UserDocument["_id"];
+  active_delivery_id?: DeliveryDocument["delivery_id"];
+  description?: string;
+  weight?: number;
+  height?: number;
+  depth?: number;
+  from_name?: string;
+  from_address?: string;
+  from_location?: LocationType;
+  to_name?: string;
+  to_address?: string;
+  to_location?: LocationType;
 }
 
 export interface PackageDocument extends PackageInput, mongoose.Document {
@@ -30,17 +29,10 @@ export interface PackageDocument extends PackageInput, mongoose.Document {
 
 const packageSchema = new Schema(
   {
-    package_id: {
-      type: String,
-      required: true,
-      unique: true,
-      default: () => `package_${nanoid()}`,
-    },
     user_id: { type: Schema.Types.ObjectId, ref: "User", required: true },
     active_delivery_id: {
       type: Schema.Types.ObjectId,
       ref: "Delivery",
-      required: true,
     },
     description: { type: String, required: true },
     weight: { type: Number, required: true },
@@ -63,6 +55,14 @@ const packageSchema = new Schema(
     timestamps: true,
   }
 );
+
+packageSchema.virtual("package_id").get(function () {
+  return this._id;
+});
+
+// Ensure virtual fields are included in JSON output
+packageSchema.set("toJSON", { virtuals: true });
+packageSchema.set("toObject", { virtuals: true });
 
 const PackageModel = mongoose.model("Package", packageSchema);
 
