@@ -11,7 +11,7 @@ Content-Type: application/json
     "name": "serge",
     "email": "test@sergioexpert.com",
     "password": "WelcomPass22",
-    "passwordConfirm": "AtWelcomPass22aboe14"
+    "passwordConfirm": "WelcomPass22"
 }
 
 ##### 
@@ -30,6 +30,7 @@ Content-Type: application/json
 @accesToken = {{login.response.body.accesToken}}
 @refreshToken = {{login.response.body.refreshToken}}
 @packageId = {{createPackage.response.body.package_id}}
+@deliveryId = {{createDelivery.response.body.delivery_id}}
 
 
 #####
@@ -92,8 +93,9 @@ Authorization: Bearer {{accesToken}}
 x-refresh: {{refreshToken}}
 
 {
-    "active_delivery_id": "8454a0ed4eb04f1ad07deca1",
+    "active_delivery_id": "{{deliveryId}}",
     "description": "Just A Package, with update info"
+
 
 }
 
@@ -102,3 +104,61 @@ DELETE  {{host}}/api/package/{{packageId}}
 Content-Type: application/json
 Authorization: Bearer {{accesToken}}
 x-refresh: {{refreshToken}}
+
+#####
+GET  {{host}}/api/delivery
+Content-Type: application/json
+Authorization: Bearer {{accesToken}}
+x-refresh: {{refreshToken}}
+
+
+####
+GET {{host}}/api/delivery/{{deliveryId}}
+Content-Type: application/json
+Authorization: Bearer {{accesToken}}
+x-refresh: {{refreshToken}}
+
+#####
+# @name createDelivery
+POST  {{host}}/api/delivery
+Content-Type: application/json
+Authorization: Bearer {{accesToken}}
+x-refresh: {{refreshToken}}
+
+{
+    "package_id": "{{packageId}}",
+    "pickup_time": 1716832293803,
+    "location":   {
+        "lat": 12,
+        "lng": 2
+    }
+}
+####
+PUT  {{host}}/api/delivery/{{deliveryId}}
+Content-Type: application/json
+Authorization: Bearer {{accesToken}}
+x-refresh: {{refreshToken}}
+
+{
+    "status": "in-transit",
+    "pickup_time": 1716832293803,
+    "location":   {
+        "lat": 12,
+        "lng": 2
+    }
+}
+
+####
+DELETE  {{host}}/api/delivery/{{deliveryId}}
+Content-Type: application/json
+Authorization: Bearer {{accesToken}}
+x-refresh: {{refreshToken}}
+
+{
+    "status": "in-transit",
+    "pickup_time": 1716832293803,
+    "location":   {
+        "lat": 12,
+        "lng": 2
+    }
+}

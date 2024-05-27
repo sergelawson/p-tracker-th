@@ -17,49 +17,100 @@ import {
   getPackageHandler,
   updatePackageHandler,
 } from "./controller/package.controller";
+
 import {
   createPackageSchema,
   requiredPackageSchema,
 } from "./schema/package.schema";
+import {
+  createDeliveryHandler,
+  deleteDeliveryHandler,
+  getAllDeliveriesHandler,
+  getDeliveryHandler,
+  updateDeliveryHandler,
+} from "./controller/delivery.controller";
+import {
+  createDeliverySchema,
+  requiredDeliverySchema,
+  updateDeliverySchema,
+} from "./schema/delivery.schema";
+import asyncWrapper from "./utils/asyncWrapper";
 
 function routes(app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => {
     res.sendStatus(200);
   });
 
-  app.post("/api/users", validateResource(createUserSchema), createUserHandler);
+  app.post(
+    "/api/users",
+    validateResource(createUserSchema),
+    asyncWrapper(createUserHandler)
+  );
 
   app.post(
     "/api/sessions",
     validateResource(createSessionSchema),
-    createSessionHandler
+    asyncWrapper(createSessionHandler)
   );
 
-  app.get("/api/sessions", requireUser(), getUserSessionsHandler);
+  app.get("/api/sessions", requireUser(), asyncWrapper(getUserSessionsHandler));
 
-  app.delete("/api/sessions", requireUser(), deleteSessionHandler);
+  app.delete(
+    "/api/sessions",
+    requireUser(),
+    asyncWrapper(deleteSessionHandler)
+  );
 
-  app.get("/api/packages", requireUser(), getAllPackagesHandler);
+  app.get("/api/package", requireUser(), asyncWrapper(getAllPackagesHandler));
 
   app.post(
     "/api/package",
     [requireUser(), validateResource(createPackageSchema)],
-    createPackageHandler
+    asyncWrapper(createPackageHandler)
   );
   app.get(
     "/api/package/:id",
     [requireUser(), validateResource(requiredPackageSchema)],
-    getPackageHandler
+    asyncWrapper(getPackageHandler)
   );
   app.put(
     "/api/package/:id",
     [requireUser(), validateResource(requiredPackageSchema)],
-    updatePackageHandler
+    asyncWrapper(updatePackageHandler)
   );
   app.delete(
     "/api/package/:id",
     [requireUser(), validateResource(requiredPackageSchema)],
-    deletePackageHandler
+    asyncWrapper(deletePackageHandler)
+  );
+
+  app.get(
+    "/api/delivery",
+    requireUser(),
+    asyncWrapper(getAllDeliveriesHandler)
+  );
+
+  app.get(
+    "/api/delivery/:id",
+    [requireUser(), validateResource(requiredDeliverySchema)],
+    asyncWrapper(getDeliveryHandler)
+  );
+
+  app.post(
+    "/api/delivery",
+    [requireUser(), validateResource(createDeliverySchema)],
+    asyncWrapper(createDeliveryHandler)
+  );
+
+  app.put(
+    "/api/delivery/:id",
+    [requireUser(), validateResource(updateDeliverySchema)],
+    asyncWrapper(updateDeliveryHandler)
+  );
+  app.delete(
+    "/api/delivery/:id",
+    [requireUser(), validateResource(requiredDeliverySchema)],
+    asyncWrapper(deleteDeliveryHandler)
   );
 }
 

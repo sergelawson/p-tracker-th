@@ -2,7 +2,6 @@ import { pick } from "lodash";
 
 export function sanitizePackage(input: any) {
   return pick(input, [
-    "user_id",
     "active_delivery_id",
     "description",
     "weight",
@@ -20,10 +19,10 @@ export function sanitizePackage(input: any) {
 export function sanitizeDelivery(input: any) {
   return pick(input, [
     "package_id",
-    "user_id",
     "pickup_time",
     "start_time",
     "end_time",
     "location",
+    "status",
   ]);
 }

@@ -7,7 +7,6 @@ import {
   deletePackage,
 } from "../service/package.service";
 import { sanitizePackage } from "../utils/sanitize";
-import mongoose from "mongoose";
 
 export async function getAllPackagesHandler(req: Request, res: Response) {
   const packageList = await getAllPackages();
@@ -17,8 +16,6 @@ export async function getAllPackagesHandler(req: Request, res: Response) {
 
 export async function getPackageHandler(req: Request, res: Response) {
   const { id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) return res.sendStatus(404);
 
   const packageElement = await getPackage(id);
 

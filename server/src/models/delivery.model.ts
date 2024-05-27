@@ -35,7 +35,7 @@ const deliverySchema = new Schema(
       lat: { type: Number, required: true },
       lng: { type: Number, required: true },
     },
-    status: { type: String, required: true },
+    status: { type: String, required: true, default: "open" },
   },
   {
     timestamps: true,
@@ -49,6 +49,9 @@ deliverySchema.virtual("delivery_id").get(function () {
 deliverySchema.set("toJSON", { virtuals: true });
 deliverySchema.set("toObject", { virtuals: true });
 
-const DeliveryModel = mongoose.model("Delivery", deliverySchema);
+const DeliveryModel = mongoose.model<DeliveryDocument>(
+  "Delivery",
+  deliverySchema
+);
 
 export default DeliveryModel;

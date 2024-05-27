@@ -2,7 +2,7 @@ import DeliveryModel, {
   DeliveryDocument,
   DeliveryInput,
 } from "../models/delivery.model";
-import { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
+import mongoose, { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
 
 export async function createDelivery(input: DeliveryInput) {
   try {
@@ -15,6 +15,8 @@ export async function createDelivery(input: DeliveryInput) {
 
 export async function getDelivery(id: string) {
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) throw new Error("invalid id");
+
     const deliveryData = await DeliveryModel.findById(id);
 
     return deliveryData?.toJSON();
@@ -37,7 +39,7 @@ export async function updateDelivery(
   options: QueryOptions
 ) {
   try {
-    return await DeliveryModel.findOneAndUpdate(query, update, options);
+    return await DeliveryModel.findOneAndUpdate(query, update, options).lean();
   } catch (e: any) {
     throw new Error(e);
   }

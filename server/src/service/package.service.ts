@@ -2,7 +2,7 @@ import PackageModel, {
   PackageDocument,
   PackageInput,
 } from "../models/package.model";
-import { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
+import mongoose, { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
 
 export async function createPackage(input: PackageInput) {
   try {
@@ -15,6 +15,8 @@ export async function createPackage(input: PackageInput) {
 
 export async function getPackage(id: string) {
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) throw new Error("invalid id");
+
     const packageData = await PackageModel.findById(id);
 
     return packageData?.toJSON();

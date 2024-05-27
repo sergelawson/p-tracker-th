@@ -64,6 +64,6 @@ packageSchema.virtual("package_id").get(function () {
 packageSchema.set("toJSON", { virtuals: true });
 packageSchema.set("toObject", { virtuals: true });
 
-const PackageModel = mongoose.model("Package", packageSchema);
+const PackageModel = mongoose.model<PackageDocument>("Package", packageSchema);
 
 export default PackageModel;

@@ -4,6 +4,7 @@ import connect from "./utils/connect";
 import logger from "./utils/logger";
 import routes from "./routes";
 import deserializeUser from "./middleware/deserializeUser";
+import errorHandler from "./middleware/errorHandler";
 
 const PORT = config.get<number>("port");
 
@@ -17,4 +18,5 @@ app.listen(PORT, async () => {
   logger.info(`App is running at ${PORT}`);
   await connect();
   routes(app);
+  app.use(errorHandler);
 });
