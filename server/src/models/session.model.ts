@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 import { UserDocument } from "./user.model";
 
@@ -13,9 +13,9 @@ export interface SessionDocument extends SessionInput, mongoose.Document {
   updatedAt: Date;
 }
 
-const sessionSchema = new mongoose.Schema(
+const sessionSchema = new Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    user: { type: Schema.Types.ObjectId, ref: "User" },
     valid: { type: Boolean, default: true },
     userAgent: { type: String },
   },
