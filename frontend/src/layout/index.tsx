@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useContext } from "react";
 import {
   IconButton,
   Box,
@@ -21,28 +21,25 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import {
-  FiHome,
-  FiTrendingUp,
+  FiUser,
   FiCompass,
-  FiStar,
-  FiSettings,
+  FiTruck,
   FiMenu,
-  FiBell,
   FiChevronDown,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
-import { ReactText } from "react";
+import useAuth from "../hooks/useAuth";
+import UserContext from "../components/UserContext";
 
 interface LinkItemProps {
   name: string;
   icon: IconType;
+  role: "admin" | "tracker" | "driver";
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome },
-  { name: "Trending", icon: FiTrendingUp },
-  { name: "Explore", icon: FiCompass },
-  { name: "Favourites", icon: FiStar },
-  { name: "Settings", icon: FiSettings },
+  { name: "Admin", icon: FiUser, role: "admin" },
+  { name: "Driver", icon: FiTruck, role: "driver" },
+  { name: "Tracker", icon: FiCompass, role: "tracker" },
 ];
 
 export default function SidebarWithHeader({
@@ -84,6 +81,7 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const { user } = useContext(UserContext);
   return (
     <Box
       transition="3s ease"
@@ -101,18 +99,20 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
-          {link.name}
-        </NavItem>
-      ))}
+      {LinkItems.map((link) =>
+        link.role === user?.role ? (
+          <NavItem key={link.name} icon={link.icon}>
+            {link.name}
+          </NavItem>
+        ) : null
+      )}
     </Box>
   );
 };
 
 interface NavItemProps extends FlexProps {
   icon: IconType;
-  children: ReactText;
+  children: string | number;
 }
 const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
   return (
@@ -154,6 +154,7 @@ interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const { user, signout } = useAuth({ isPrivate: true });
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -198,9 +199,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">Justina Clark</Text>
+                  <Text fontSize="sm">{user?.email}</Text>
                   <Text fontSize="xs" color="gray.600">
-                    P-Tracker
+                    {user?.role}
                   </Text>
                 </VStack>
                 <Box display={{ base: "none", md: "flex" }}>
@@ -212,7 +213,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               bg={useColorModeValue("white", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem onClick={signout}>Sign out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>

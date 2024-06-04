@@ -5,10 +5,12 @@ import logger from "./utils/logger";
 import routes from "./routes";
 import deserializeUser from "./middleware/deserializeUser";
 import errorHandler from "./middleware/errorHandler";
-
+import cors from "cors";
 const PORT = config.get<number>("port");
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 

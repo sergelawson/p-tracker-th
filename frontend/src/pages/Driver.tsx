@@ -17,6 +17,7 @@ import "leaflet/dist/leaflet.css";
 import { useState } from "react";
 import { LatLngExpression } from "leaflet";
 import { IoStorefrontSharp, IoHome } from "react-icons/io5";
+import withRole from "../components/WithRole";
 
 function Driver() {
   const [destination, setDestination] = useState<LatLngExpression | null>([
@@ -113,4 +114,4 @@ function Driver() {
   );
 }
 
-export default Driver;
+export default withRole(Driver, "driver");

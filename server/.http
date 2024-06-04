@@ -47,7 +47,7 @@ x-refresh: {{refreshToken}}
 
 
 #####
-GET {{host}}/api/packages
+GET {{host}}/api/package
 Content-Type: application/json
 Authorization: Bearer {{accesToken}}
 x-refresh: {{refreshToken}}

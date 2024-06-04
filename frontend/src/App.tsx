@@ -3,11 +3,14 @@ import Login from "./pages/Login";
 import Driver from "./pages/Driver";
 import Tracker from "./pages/Tracker";
 import Admin from "./pages/Admin";
+import UserContext from "./components/UserContext";
+import { useState } from "react";
+import useAuth from "./hooks/useAuth";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <Admin />,
   },
   {
     path: "/driver",
@@ -24,13 +27,21 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const authStatus: boolean = true;
+  const [user, setUser] = useState(null);
 
-  if (!authStatus) {
-    return <Login />;
+  if (!user) {
+    return (
+      <UserContext.Provider value={{ user: user, setUser }}>
+        <Login />
+      </UserContext.Provider>
+    );
   }
 
-  return <RouterProvider router={router} />;
+  return (
+    <UserContext.Provider value={{ user: user, setUser }}>
+      <RouterProvider router={router} />
+    </UserContext.Provider>
+  );
 }
 
 export default App;
