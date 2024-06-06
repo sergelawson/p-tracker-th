@@ -36,8 +36,6 @@ export default async function deserializeUser(
 
       const { decoded } = verifyJwt(newAccessToken, "accessTokenKey");
 
-      console.log("decoded", decoded);
-
       res.locals.user = decoded;
 
       return next();

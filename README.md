@@ -1,8 +1,8 @@
-## Package Tracker Project - MEAN Stack
+## Package Tracker Project - MERN Stack
 
 ### Features
 
-- JSON Web Tokens
-- Authorization
 - CRUD
 - Websockets
+- JSON Web Tokens
+- Authorization

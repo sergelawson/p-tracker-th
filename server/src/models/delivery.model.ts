@@ -24,23 +24,18 @@ export interface DeliveryDocument extends DeliveryInput, mongoose.Document {
   updatedAt: Date;
 }
 
-const deliverySchema = new Schema(
-  {
-    package_id: { type: Schema.Types.ObjectId, ref: "Package", required: true },
-    user_id: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    pickup_time: { type: Date },
-    start_time: { type: Date },
-    end_time: { type: Date },
-    location: {
-      lat: { type: Number, required: true },
-      lng: { type: Number, required: true },
-    },
-    status: { type: String, required: true, default: "open" },
+const deliverySchema = new Schema({
+  package_id: { type: Schema.Types.ObjectId, ref: "Package", required: true },
+  user_id: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  pickup_time: { type: Date },
+  start_time: { type: Date },
+  end_time: { type: Date },
+  location: {
+    lat: { type: Number, required: true },
+    lng: { type: Number, required: true },
   },
-  {
-    timestamps: true,
-  }
-);
+  status: { type: String, required: true, default: "open" },
+});
 
 deliverySchema.virtual("delivery_id").get(function () {
   return this._id;

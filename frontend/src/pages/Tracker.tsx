@@ -12,69 +12,44 @@ import { MapContainer, TileLayer } from "react-leaflet";
 //@ts-ignore
 import { MarkerLayer, Marker } from "react-leaflet-marker";
 import { FaTruckFast } from "react-icons/fa6";
-
 import "leaflet/dist/leaflet.css";
 import { useState } from "react";
-import { LatLngExpression } from "leaflet";
 import { IoStorefrontSharp, IoHome } from "react-icons/io5";
 import withRole from "../components/WithRole";
 import useApiRequest from "../hooks/useApiRequest";
-import { DeliveryType, PackageType } from "../helpers/types";
+import { DeliveryType } from "../helpers/types";
+import useTracker from "../hooks/useTracker";
+import MapPlace from "../components/MapPlace";
 
 function Tracker() {
-  const [getPackage, { data: packageData, error, loading }] =
-    useApiRequest<PackageType>();
-  const [
-    getDelivery,
-    { data: deliveryData, error: errDelivery, loading: loadingDelivery },
-  ] = useApiRequest<DeliveryType>();
+  useApiRequest<DeliveryType>();
 
   const [packageId, setPackageId] = useState<string>("");
 
-  const [destination, setDestination] = useState<LatLngExpression>();
-
-  const [source, setSource] = useState<LatLngExpression>();
-
-  const [driver, setDriver] = useState<LatLngExpression>();
-
-  const handleGetPackage = async () => {
-    const pObj = await getPackage({
-      method: "get",
-      url: `/package/${packageId}`,
-    });
-    if (pObj?.to_location) {
-      setDestination([pObj?.to_location?.lng, pObj?.to_location?.lat]);
-    }
-    if (pObj?.from_location) {
-      setSource([pObj?.from_location?.lng, pObj?.from_location?.lat]);
-      setDriver([pObj?.from_location?.lng, pObj?.from_location?.lat]);
-    }
-    if (pObj?.active_delivery_id) {
-      const delData = await getDelivery({
-        method: "get",
-        url: `/delivery/${pObj.active_delivery_id}`,
-      });
-      if (delData?.location) {
-        setDriver([delData?.location?.lng, delData?.location?.lat]);
-        //  setDriver([pObj?.from_location?.lng, pObj?.from_location?.lat]);
-      }
-    }
-  };
+  const {
+    loading,
+    handleGetPackage,
+    packageData,
+    deliveryData,
+    destination,
+    source,
+    driver,
+  } = useTracker();
 
   return (
     <Layout>
       <HStack spacing={2} maxW={500}>
         <Input
           bgColor={"white"}
-          placeholder="Package Id"
+          placeholder="Enter Package Id"
           onChange={(e) => setPackageId(e.target.value)}
         />
         <Button
           isLoading={loading}
           colorScheme="blue"
-          onClick={handleGetPackage}
+          onClick={() => handleGetPackage(packageId)}
         >
-          Submit
+          Track
         </Button>
       </HStack>
       <HStack mt={10} alignItems={"flex-start"}>
@@ -155,8 +130,8 @@ function Tracker() {
           {destination ? (
             <MapContainer
               style={{ width: 500, height: 400 }}
-              center={destination}
-              zoom={10}
+              center={source}
+              zoom={20}
               scrollWheelZoom={false}
             >
               <TileLayer
@@ -166,28 +141,12 @@ function Tracker() {
               {destination ? (
                 <MarkerLayer>
                   <Marker position={destination}>
-                    <Box
-                      display={"flex"}
-                      flexDirection={"column"}
-                      alignItems={"center"}
-                    >
-                      <IoHome size={25} />
-
-                      <Text>Destination</Text>
-                    </Box>
-                  </Marker>
-                </MarkerLayer>
-              ) : null}
-              {driver ? (
-                <MarkerLayer>
-                  <Marker position={driver}>
-                    <Box
-                      display={"flex"}
-                      flexDirection={"column"}
-                      alignItems={"center"}
-                    >
-                      <FaTruckFast color="red" size={20} />
-                    </Box>
+                    <MapPlace>
+                      <IoHome color={"#3182CE"} size={15} />
+                      <Text color={"#3182CE"} fontSize={6}>
+                        Destination
+                      </Text>
+                    </MapPlace>
                   </Marker>
                 </MarkerLayer>
               ) : null}
@@ -195,13 +154,26 @@ function Tracker() {
               {source ? (
                 <MarkerLayer>
                   <Marker position={source}>
+                    <MapPlace>
+                      <IoStorefrontSharp color={"#3182CE"} size={15} />
+                      <Text color={"#3182CE"} fontSize={6}>
+                        Source
+                      </Text>
+                    </MapPlace>
+                  </Marker>
+                </MarkerLayer>
+              ) : null}
+
+              {driver ? (
+                <MarkerLayer>
+                  <Marker position={driver}>
                     <Box
                       display={"flex"}
                       flexDirection={"column"}
                       alignItems={"center"}
+                      position={"absolute"}
                     >
-                      <IoStorefrontSharp size={25} />
-                      <Text>Source</Text>
+                      <FaTruckFast color="red" size={20} />
                     </Box>
                   </Marker>
                 </MarkerLayer>

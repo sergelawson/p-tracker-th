@@ -20,13 +20,6 @@ import useDriver from "../hooks/useDriver";
 import MapPlace from "../components/MapPlace";
 import { DeliveryType } from "../helpers/types";
 
-{
-  /* <Button colorScheme="cyan">Pick up</Button>
-<Button colorScheme="orange">Transit</Button>
-<Button colorScheme="green">Delivered</Button>
-<Button colorScheme="red">Failed</Button> */
-}
-
 type ButtonType = {
   text: string;
   status: DeliveryType["status"];
@@ -77,7 +70,7 @@ function Driver() {
       <HStack spacing={2} maxW={500}>
         <Input
           bgColor={"white"}
-          placeholder="Enter Driver Id"
+          placeholder="Enter delivery Id"
           onChange={(e) => setDeliveryId(e.target.value)}
         />
         <Button
@@ -139,10 +132,7 @@ function Driver() {
             <strong>Package Id: </strong>
             {deliveryData?.package_id}
           </Text>
-          <Text fontSize="md">
-            <strong>Status: </strong>
-            {deliveryData?.status}
-          </Text>
+
           <Text fontSize="md">
             <strong>Pickup Time:</strong>{" "}
             {deliveryData?.pickup_time

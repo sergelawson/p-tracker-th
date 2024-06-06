@@ -70,8 +70,8 @@ const useDriver = () => {
             type: "UPDATE_DELIVERY",
             deliveryId: deliveryRef.current,
             location: {
-              lng: position.coords.latitude,
-              lat: position.coords.longitude,
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
             },
           };
           ws.current.send(JSON.stringify(inputMessage));
