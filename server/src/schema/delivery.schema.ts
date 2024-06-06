@@ -44,6 +44,23 @@ export const updateDeliverySchema = object({
   }),
 });
 
+export const updateDeliveryWSSchema = object({
+  deliveryId: string({
+    required_error: "delivery id is required.",
+  }),
+  location: object({
+    lat: number({
+      required_error: "lat is required",
+    }),
+    lng: number({
+      required_error: "lng is required",
+    }),
+  }).optional(),
+  status: z
+    .enum(["open", "picked-up", "in-transit", "delivered", "failed"] as const)
+    .optional(),
+});
+
 export const requiredDeliverySchema = object({
   params: object({
     id: string({

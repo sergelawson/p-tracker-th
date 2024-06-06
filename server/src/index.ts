@@ -6,6 +6,9 @@ import routes from "./routes";
 import deserializeUser from "./middleware/deserializeUser";
 import errorHandler from "./middleware/errorHandler";
 import cors from "cors";
+import http from "http";
+import { WebSocketServer } from "./websockets";
+
 const PORT = config.get<number>("port");
 
 const app = express();
@@ -16,9 +19,12 @@ app.use(express.json());
 
 app.use(deserializeUser);
 
-app.listen(PORT, async () => {
+const server = http.createServer(app);
+
+server.listen(PORT, async () => {
   logger.info(`App is running at ${PORT}`);
   await connect();
   routes(app);
   app.use(errorHandler);
+  WebSocketServer(server);
 });

@@ -2,13 +2,42 @@ import DeliveryModel, {
   DeliveryDocument,
   DeliveryInput,
 } from "../models/delivery.model";
-import mongoose, { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
+import mongoose, {
+  FilterQuery,
+  QueryOptions,
+  UpdateQuery,
+  startSession,
+} from "mongoose";
+import PackageModel from "../models/package.model";
 
 export async function createDelivery(input: DeliveryInput) {
+  const session = await startSession();
+  session.startTransaction();
+
   try {
-    const deliveryData = await DeliveryModel.create(input);
+    const deliveryData = new DeliveryModel(input);
+
+    await deliveryData.save({ session });
+
+    const deliveryPackage = await PackageModel.findById(
+      input.package_id
+    ).session(session);
+
+    if (!deliveryPackage) {
+      throw new Error("Package not found");
+    }
+
+    deliveryPackage.active_delivery_id = deliveryData._id;
+
+    await deliveryPackage.save({ session });
+
+    await session.commitTransaction();
+    session.endSession();
     return deliveryData.toJSON();
   } catch (e: any) {
+    await session.abortTransaction();
+    session.endSession();
+
     throw new Error(e);
   }
 }
