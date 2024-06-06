@@ -13,10 +13,10 @@ export interface PackageType {
   depth?: number;
   from_name?: string;
   from_address?: string;
-  from_location?: LocationType;
+  from_location: LocationType;
   to_name?: string;
   to_address?: string;
-  to_location?: LocationType;
+  to_location: LocationType;
 }
 
 export interface DeliveryType {
@@ -27,6 +27,6 @@ export interface DeliveryType {
   pickup_time?: Date;
   start_time?: Date;
   end_time?: Date;
-  location?: LocationType;
+  location: LocationType;
   status?: "open" | "picked-up" | "in-transit" | "delivered" | "failed";
 }
