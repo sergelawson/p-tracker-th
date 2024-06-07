@@ -26,7 +26,7 @@ function Admin() {
         {/** Delivery Section  */}
 
         <HStack mt={10} justifyContent={"space-between"}>
-          <Heading size="lg">Deliver List</Heading>
+          <Heading size="lg">Delivery List</Heading>
           <Button colorScheme="green">Create Delivery</Button>
         </HStack>
 
