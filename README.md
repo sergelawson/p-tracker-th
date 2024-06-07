@@ -12,7 +12,6 @@ This is a take-home project that demonstrates a MERN (MongoDB, Express, React, N
 - [Authentication and Authorization](#authentication-and-authorization)
 - [Screenshots](#screenshots)
 
-
 ## Features
 
 - User authentication and authorization using JWT
@@ -31,41 +30,46 @@ This is a take-home project that demonstrates a MERN (MongoDB, Express, React, N
 ## Installation
 
 1. Clone the repository:
-    ```sh
-    git clone https://github.com/sergelawson/p-tracker-th.git
-    cd p-tracker-th
-    ```
+
+   ```sh
+   git clone https://github.com/sergelawson/p-tracker-th.git
+   cd p-tracker-th
+   ```
 
 2. Install server dependencies:
-    ```sh
-    cd server
-    pnpm install
-    ```
+
+   ```sh
+   cd server
+   pnpm install
+   ```
 
 3. Install client dependencies:
-    ```sh
-    cd ../frontend
-    pnpm install
-    ```
+
+   ```sh
+   cd ../frontend
+   pnpm install
+   ```
 
 4. Create a `.env` file in the `server` directory and add the following environment variables:
-    ```env
-    PORT=5000
-    MONGO_URI=your_mongo_connection_string
-    JWT_SECRET=your_jwt_secret
-    ```
+
+   ```env
+   PORT=5000
+   MONGO_URI=your_mongo_connection_string
+   JWT_SECRET=your_jwt_secret
+   ```
 
 5. Start the development server:
-    ```sh
-    cd ../server
-    pnpm run dev
-    ```
+
+   ```sh
+   cd ../server
+   pnpm run dev
+   ```
 
 6. Start the client development server:
-    ```sh
-    cd ../frontend
-    pnpm run dev
-    ```
+   ```sh
+   cd ../frontend
+   pnpm run dev
+   ```
 
 ## Usage
 
@@ -101,5 +105,16 @@ This is a take-home project that demonstrates a MERN (MongoDB, Express, React, N
 The application uses JWT (JSON Web Token) for securing API endpoints. Users must log in to obtain a token, which must be included in the `Authorization` header of subsequent requests.
 
 Example:
+
 ```sh
 Authorization: Bearer your_jwt_token
+
+### Screenshots
+
+### Tracker
+![Tracker](./screenshots/tracker.png)
+
+### Driver
+![Driver](./screenshots/driver.png)
+
+```
