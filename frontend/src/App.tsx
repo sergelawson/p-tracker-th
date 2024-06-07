@@ -4,8 +4,9 @@ import Driver from "./pages/Driver";
 import Tracker from "./pages/Tracker";
 import Admin from "./pages/Admin";
 import UserContext from "./components/UserContext";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useAuth from "./hooks/useAuth";
+import { Box, Spinner } from "@chakra-ui/react";
 
 const router = createBrowserRouter([
   {
@@ -29,19 +30,21 @@ const router = createBrowserRouter([
 function App() {
   const [user, setUser] = useState(null);
 
-  if (!user) {
-    return (
-      <UserContext.Provider value={{ user: user, setUser }}>
-        <Login />
-      </UserContext.Provider>
-    );
-  }
-
   return (
     <UserContext.Provider value={{ user: user, setUser }}>
-      <RouterProvider router={router} />
+      <Auth />
     </UserContext.Provider>
   );
+}
+
+function Auth() {
+  const { user } = useAuth({ isPrivate: true });
+
+  if (!user) {
+    return <Login />;
+  }
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;

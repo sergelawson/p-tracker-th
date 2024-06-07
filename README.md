@@ -50,22 +50,14 @@ This is a take-home project that demonstrates a MERN (MongoDB, Express, React, N
    pnpm install
    ```
 
-4. Create a `.env` file in the `server` directory and add the following environment variables:
-
-   ```env
-   PORT=5000
-   MONGO_URI=your_mongo_connection_string
-   JWT_SECRET=your_jwt_secret
-   ```
-
-5. Start the development server:
+4. Start the development server:
 
    ```sh
    cd ../server
    pnpm run dev
    ```
 
-6. Start the client development server:
+5. Start the client development server:
    ```sh
    cd ../frontend
    pnpm run dev

@@ -10,6 +10,16 @@ import {
 } from "@chakra-ui/react";
 import { DeliveryType } from "../helpers/types";
 
+const timeConfig: Intl.DateTimeFormatOptions = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hour12: false,
+};
+
 const Delivery: React.FC<DeliveryType> = ({
   delivery_id,
   package_id,
@@ -18,15 +28,6 @@ const Delivery: React.FC<DeliveryType> = ({
   start_time,
   end_time,
 }) => {
-  const timeConfig: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  };
   return (
     <Card>
       <CardHeader>
@@ -35,22 +36,6 @@ const Delivery: React.FC<DeliveryType> = ({
 
       <CardBody>
         <Stack divider={<StackDivider />} spacing="4">
-          <Box>
-            <Heading size="xs" textTransform="uppercase">
-              Delivery ID
-            </Heading>
-            <Text pt="2" fontSize="sm">
-              {delivery_id}
-            </Text>
-          </Box>
-          <Box>
-            <Heading size="xs" textTransform="uppercase">
-              Package ID
-            </Heading>
-            <Text pt="2" fontSize="sm">
-              {package_id}
-            </Text>
-          </Box>
           <Box>
             <Heading size="xs" textTransform="uppercase">
               Status
@@ -91,6 +76,22 @@ const Delivery: React.FC<DeliveryType> = ({
               </Text>
             </Box>
           ) : null}
+          <Box>
+            <Heading size="xs" textTransform="uppercase">
+              Delivery ID
+            </Heading>
+            <Text pt="2" fontSize="sm">
+              {delivery_id}
+            </Text>
+          </Box>
+          <Box>
+            <Heading size="xs" textTransform="uppercase">
+              Package ID
+            </Heading>
+            <Text pt="2" fontSize="sm">
+              {package_id}
+            </Text>
+          </Box>
         </Stack>
       </CardBody>
     </Card>

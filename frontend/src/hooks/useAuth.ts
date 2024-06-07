@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useLayoutEffect } from "react";
 import useLocalStorage from "./useLocalStorage";
 import UserContext from "../components/UserContext";
 
@@ -16,13 +16,13 @@ const useAuth = ({ isPrivate }: { isPrivate?: boolean }) => {
 
   const [localUser, setLocalUser] = useLocalStorage("user");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!localUser?.accesToken && isPrivate) {
       setLocalUser(null);
       setUser(null);
     }
 
-    if (localUser?.accesToken) {
+    if (localUser?.accesToken && isPrivate) {
       setIsLoggedIn(true);
       setUser(localUser);
     }
@@ -50,8 +50,6 @@ const useAuth = ({ isPrivate }: { isPrivate?: boolean }) => {
       setLocalUser({ role, name, email, accesToken, refreshToken });
 
       setUser({ role, name, email, accesToken, refreshToken });
-
-      setLoading(false);
     } catch (erorObj: any) {
       console.error(erorObj);
       if (erorObj && erorObj?.response && erorObj?.response?.data) {
@@ -65,7 +63,7 @@ const useAuth = ({ isPrivate }: { isPrivate?: boolean }) => {
           setError(null);
         }, 6000);
       }
-
+    } finally {
       setLoading(false);
     }
   };

@@ -21,15 +21,6 @@ const Package: React.FC<PackageType> = ({
   from_address,
   to_address,
 }) => {
-  const timeConfig: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  };
   return (
     <Card>
       <CardHeader>
@@ -38,38 +29,6 @@ const Package: React.FC<PackageType> = ({
 
       <CardBody>
         <Stack divider={<StackDivider />} spacing="4">
-          <Box>
-            <Heading size="xs" textTransform="uppercase">
-              Package ID
-            </Heading>
-            <Text pt="2" fontSize="sm">
-              {package_id}
-            </Text>
-          </Box>
-          <Box>
-            <Heading size="xs" textTransform="uppercase">
-              Active delivery ID
-            </Heading>
-            <Text pt="2" fontSize="sm">
-              {active_delivery_id}
-            </Text>
-          </Box>
-          <Box>
-            <Heading size="xs" textTransform="uppercase">
-              Dimensions
-            </Heading>
-            <Text pt="2" fontSize="sm">
-              {height}x{depth}
-            </Text>
-          </Box>
-          <Box>
-            <Heading size="xs" textTransform="uppercase">
-              Weight
-            </Heading>
-            <Text pt="2" fontSize="sm">
-              {weight}
-            </Text>
-          </Box>
           <Box>
             <Heading size="xs" textTransform="uppercase">
               From Name
@@ -100,6 +59,38 @@ const Package: React.FC<PackageType> = ({
             </Heading>
             <Text pt="2" fontSize="sm">
               {to_address}
+            </Text>
+          </Box>
+          <Box>
+            <Heading size="xs" textTransform="uppercase">
+              Dimensions
+            </Heading>
+            <Text pt="2" fontSize="sm">
+              {height}x{depth}
+            </Text>
+          </Box>
+          <Box>
+            <Heading size="xs" textTransform="uppercase">
+              Weight
+            </Heading>
+            <Text pt="2" fontSize="sm">
+              {weight}
+            </Text>
+          </Box>
+          <Box>
+            <Heading size="xs" textTransform="uppercase">
+              Package ID
+            </Heading>
+            <Text pt="2" fontSize="sm">
+              {package_id}
+            </Text>
+          </Box>
+          <Box>
+            <Heading size="xs" textTransform="uppercase">
+              Active delivery ID
+            </Heading>
+            <Text pt="2" fontSize="sm">
+              {active_delivery_id}
             </Text>
           </Box>
         </Stack>
