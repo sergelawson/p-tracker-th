@@ -19,6 +19,8 @@ import useDriver from "../hooks/useDriver";
 import MapPlace from "../components/MapPlace";
 import { DeliveryType } from "../helpers/types";
 import "leaflet/dist/leaflet.css";
+import Package from "../components/Package";
+import Delivery from "../components/Delivery";
 
 type ButtonType = {
   text: string;
@@ -82,76 +84,11 @@ function Driver() {
         </Button>
       </HStack>
       <HStack mt={10} alignItems={"flex-start"}>
-        <Stack>
-          <Heading as="h3" size="lg">
-            Package Details
-          </Heading>
+        <HStack alignItems={"flex-start"}>
+          {packageData ? <Package {...packageData} /> : null}
 
-          <Text fontSize="md">
-            <strong>Package Id:</strong> {packageData?.package_id}
-          </Text>
-          <Text fontSize="md">
-            <strong> Active delivery Id:</strong>{" "}
-            {packageData?.active_delivery_id}
-          </Text>
-          <Text fontSize="md">
-            <strong>Description: </strong>
-            {packageData?.description}
-          </Text>
-          <Text fontSize="md">
-            <strong>Width:</strong> {packageData?.weight}
-          </Text>
-          <Text fontSize="md">
-            <strong>Height:</strong> {packageData?.height}
-          </Text>
-          <Text fontSize="md">
-            <strong>Depth: </strong>
-            {packageData?.depth}
-          </Text>
-          <Text fontSize="md">
-            <strong>From Name:</strong> {packageData?.from_name}
-          </Text>
-          <Text fontSize="md">
-            <strong>From address:</strong> {packageData?.from_address}
-          </Text>
-          <Text fontSize="md">
-            <strong>To Name:</strong> {packageData?.to_name}
-          </Text>
-          <Text fontSize="md">
-            <strong>To address:</strong> {packageData?.to_address}
-          </Text>
-
-          <Heading as="h3" size="lg">
-            Delivery Details
-          </Heading>
-
-          <Text fontSize="md">
-            <strong> Delivery Id:</strong> {deliveryData?.delivery_id}
-          </Text>
-          <Text fontSize="md">
-            <strong>Package Id: </strong>
-            {deliveryData?.package_id}
-          </Text>
-
-          <Text fontSize="md">
-            <strong>Pickup Time:</strong>{" "}
-            {deliveryData?.pickup_time
-              ? new Date(deliveryData?.pickup_time).toLocaleDateString()
-              : null}
-          </Text>
-          <Text fontSize="md">
-            <strong>Start Time:</strong>{" "}
-            {deliveryData?.start_time
-              ? new Date(deliveryData?.start_time).toLocaleDateString()
-              : null}
-          </Text>
-          <Text fontSize="md">
-            <strong>End Time:</strong>{" "}
-            {deliveryData?.end_time
-              ? new Date(deliveryData?.end_time).toLocaleDateString()
-              : null}
-          </Text>
-        </Stack>
+          {deliveryData ? <Delivery {...deliveryData} /> : null}
+        </HStack>
         <Box w={500} height={400} mx={4}>
           {destination ? (
             <MapContainer
