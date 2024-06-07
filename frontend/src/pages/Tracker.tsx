@@ -135,15 +135,15 @@ function Tracker() {
               scrollWheelZoom={false}
             >
               <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution="MapTiler OpenStreetMap"
+                url="https://api.maptiler.com/maps/dataviz/{z}/{x}/{y}@2x.png?key=BN98JVotQDsrGzPyNRtm"
               />
               {destination ? (
                 <MarkerLayer>
                   <Marker position={destination}>
                     <MapPlace>
-                      <IoHome color={"#3182CE"} size={15} />
-                      <Text color={"#3182CE"} fontSize={6}>
+                      <IoHome color={"#2ec4b6"} size={15} />
+                      <Text fontWeight="bold" color={"#2ec4b6"} fontSize={6}>
                         Destination
                       </Text>
                     </MapPlace>
@@ -155,8 +155,8 @@ function Tracker() {
                 <MarkerLayer>
                   <Marker position={source}>
                     <MapPlace>
-                      <IoStorefrontSharp color={"#3182CE"} size={15} />
-                      <Text color={"#3182CE"} fontSize={6}>
+                      <IoStorefrontSharp color={"#2ec4b6"} size={15} />
+                      <Text fontWeight="bold" color={"#2ec4b6"} fontSize={6}>
                         Source
                       </Text>
                     </MapPlace>
@@ -173,7 +173,7 @@ function Tracker() {
                       alignItems={"center"}
                       position={"absolute"}
                     >
-                      <FaTruckFast color="red" size={20} />
+                      <FaTruckFast color="#f07167" size={20} />
                     </Box>
                   </Marker>
                 </MarkerLayer>

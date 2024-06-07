@@ -12,13 +12,13 @@ import { MapContainer, TileLayer } from "react-leaflet";
 //@ts-ignore
 import { MarkerLayer, Marker } from "react-leaflet-marker";
 import { FaTruckFast } from "react-icons/fa6";
-import "leaflet/dist/leaflet.css";
 import { IoStorefrontSharp, IoHome } from "react-icons/io5";
 import withRole from "../components/WithRole";
 import { useState } from "react";
 import useDriver from "../hooks/useDriver";
 import MapPlace from "../components/MapPlace";
 import { DeliveryType } from "../helpers/types";
+import "leaflet/dist/leaflet.css";
 
 type ButtonType = {
   text: string;
@@ -161,15 +161,15 @@ function Driver() {
               scrollWheelZoom={false}
             >
               <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution="MapTiler OpenStreetMap"
+                url="https://api.maptiler.com/maps/dataviz/{z}/{x}/{y}@2x.png?key=BN98JVotQDsrGzPyNRtm"
               />
               {destination ? (
                 <MarkerLayer>
                   <Marker position={destination}>
                     <MapPlace>
-                      <IoHome color={"#3182CE"} size={15} />
-                      <Text color={"#3182CE"} fontSize={6}>
+                      <IoHome color={"#2ec4b6"} size={15} />
+                      <Text fontWeight="bold" color={"#2ec4b6"} fontSize={6}>
                         Destination
                       </Text>
                     </MapPlace>
@@ -181,8 +181,8 @@ function Driver() {
                 <MarkerLayer>
                   <Marker position={source}>
                     <MapPlace>
-                      <IoStorefrontSharp color={"#3182CE"} size={15} />
-                      <Text color={"#3182CE"} fontSize={6}>
+                      <IoStorefrontSharp color={"#2ec4b6"} size={15} />
+                      <Text fontWeight="bold" color={"#2ec4b6"} fontSize={6}>
                         Source
                       </Text>
                     </MapPlace>
@@ -199,7 +199,7 @@ function Driver() {
                       alignItems={"center"}
                       position={"absolute"}
                     >
-                      <FaTruckFast color="red" size={20} />
+                      <FaTruckFast color="#f07167" size={20} />
                     </Box>
                   </Marker>
                 </MarkerLayer>
