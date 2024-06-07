@@ -112,3 +112,7 @@ Authorization: Bearer your_jwt_token
 ### Driver
 
 ![Driver](./screenshots/driver.png)
+
+### Admin
+
+![Admin](./screenshots/admin.png)
