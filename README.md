@@ -109,12 +109,14 @@ Example:
 ```sh
 Authorization: Bearer your_jwt_token
 
+```
+
 ### Screenshots
 
 ### Tracker
+
 ![Tracker](./screenshots/tracker.png)
 
 ### Driver
-![Driver](./screenshots/driver.png)
 
-```
+![Driver](./screenshots/driver.png)
