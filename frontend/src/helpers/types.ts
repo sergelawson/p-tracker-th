@@ -1,3 +1,6 @@
+import { InputProps } from "@chakra-ui/react";
+import { FieldValues, UseFormRegister } from "react-hook-form";
+
 type LocationType = {
   lat: number;
   lng: number;
@@ -30,3 +33,9 @@ export interface DeliveryType {
   location: LocationType;
   status?: "open" | "picked-up" | "in-transit" | "delivered" | "failed";
 }
+
+export type InputFormProps<T extends FieldValues> = InputProps & {
+  error?: string;
+  label: string;
+  register: ReturnType<UseFormRegister<T>>;
+};

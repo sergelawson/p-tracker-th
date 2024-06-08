@@ -14,7 +14,6 @@ const withRole = <P extends object>(
 
     useEffect(() => {
       if (user?.role && user?.role !== role) {
-        console.log("user?.role", user?.role);
         navigate(`/${user.role}`);
       }
     }, []);

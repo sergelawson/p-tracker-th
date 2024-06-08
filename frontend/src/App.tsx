@@ -4,9 +4,8 @@ import Driver from "./pages/Driver";
 import Tracker from "./pages/Tracker";
 import Admin from "./pages/Admin";
 import UserContext from "./components/UserContext";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import useAuth from "./hooks/useAuth";
-import { Box, Spinner } from "@chakra-ui/react";
 
 const router = createBrowserRouter([
   {

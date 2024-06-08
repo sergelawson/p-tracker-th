@@ -1,4 +1,4 @@
-# MERN Stack Package Tracker Application
+# 💫 MERN Stack Package Tracker Application
 
 This is a take-home project that demonstrates a MERN (MongoDB, Express, React, Node.js) stack application for tracking deliveries and packages. The application provides CRUD operations for managing deliveries, packages, and tracking.
 
@@ -16,16 +16,15 @@ This is a take-home project that demonstrates a MERN (MongoDB, Express, React, N
 
 - User authentication and authorization using JWT
 - Create, Read, Update, and Delete (CRUD) operations for Deliveries and Packages
-- Real-time tracking of packages and driver postion update
+- Real-time tracking of packages and driver postion
 
 ## Technologies Used
 
-- MongoDB: NoSQL database for storing data
-- Express: Web framework for Node.js
 - React: Front-end library for building user interfaces
-- Node.js: JavaScript runtime for server-side development
+- Express: Web framework for Node.js
+- MongoDB: NoSQL database for storing data
 - JWT: JSON Web Token for securing APIs
-- Mongoose: ODM for MongoDB and Node.js
+- Websocket: Real-time, event-driven communication between clients and servers
 
 ## Installation
 
@@ -116,3 +115,11 @@ Authorization: Bearer your_jwt_token
 ### Admin
 
 ![Admin](./screenshots/admin.png)
+
+### Package Form
+
+![Package Form](./screenshots/package-form.png)
+
+### Delivery Form
+
+![Delivery Form](./screenshots/delivery-form.png)

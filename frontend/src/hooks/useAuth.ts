@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState, useContext, useLayoutEffect } from "react";
+import { useState, useContext, useLayoutEffect } from "react";
 import useLocalStorage from "./useLocalStorage";
 import UserContext from "../components/UserContext";
 
@@ -37,7 +37,6 @@ const useAuth = ({ isPrivate }: { isPrivate?: boolean }) => {
     password: string;
   }) => {
     setLoading(true);
-    //console.log(email, password);
 
     try {
       const { data } = await axios.post(`${URL}/api/sessions`, {
@@ -56,8 +55,6 @@ const useAuth = ({ isPrivate }: { isPrivate?: boolean }) => {
         const message = erorObj?.response?.data;
 
         setError(message);
-
-        //console.log(renderMessage);
 
         setTimeout(() => {
           setError(null);

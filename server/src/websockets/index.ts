@@ -45,7 +45,6 @@ export const WebSocketServer = (server: http.Server) => {
             }
 
             DeliveryModel.watch().on("change", (data) => {
-              console.log(data);
               if (
                 data?.operationType === "update" &&
                 data?.documentKey?._id == parsedMessage.deliveryId
