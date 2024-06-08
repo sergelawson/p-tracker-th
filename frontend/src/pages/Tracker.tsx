@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Heading,
-  HStack,
-  Input,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, HStack, Input, Text } from "@chakra-ui/react";
 import Layout from "../layout";
 import { MapContainer, TileLayer } from "react-leaflet";
 //@ts-ignore

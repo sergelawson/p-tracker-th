@@ -31,8 +31,6 @@ function Admin() {
     loadingDelivery,
     loadingDeliveryRequest,
     loadingPackageRequest,
-    errPackageRequest,
-    errDeliveryRequest,
   } = useAdmin();
 
   return (

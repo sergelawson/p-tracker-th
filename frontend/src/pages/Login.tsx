@@ -10,7 +10,6 @@ import {
   useColorModeValue,
   Alert,
   AlertIcon,
-  Spinner,
 } from "@chakra-ui/react";
 import useAuth from "../hooks/useAuth";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -35,7 +34,7 @@ export default function Login() {
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"}>Sign in to your account</Heading>
+          <Heading fontSize={"4xl"}>Package Tracker</Heading>
         </Stack>
 
         {error ? (
