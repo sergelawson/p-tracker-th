@@ -15,6 +15,8 @@ const useTracker = () => {
 
   const [deliveryData, setDeliveryData] = useState<DeliveryType>();
 
+  const [activeDeliveryId, setActiveDeliveryId] = useState<string>();
+
   const ws = useRef<WebSocket | null>(null);
 
   useEffect(() => {
@@ -27,7 +29,7 @@ const useTracker = () => {
     ws.current.onmessage = (event) => {
       const message = JSON.parse(event.data);
 
-      if (message.type === "DELIVERY_DATA") {
+      if (message.type === `DELIVERY_DATA_${activeDeliveryId}`) {
         setDeliveryData((state) => {
           if (!state) {
             return message.data;
@@ -57,6 +59,12 @@ const useTracker = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (activeDeliveryId) {
+      getDelivery(activeDeliveryId);
+    }
+  }, [activeDeliveryId]);
+
   const handleGetPackage = async (packageId: string) => {
     const pObj = await getPackage({
       method: "get",
@@ -70,7 +78,7 @@ const useTracker = () => {
       setDriver([pObj?.from_location?.lat, pObj?.from_location?.lng]);
     }
     if (pObj?.active_delivery_id) {
-      getDelivery(pObj.active_delivery_id);
+      setActiveDeliveryId(pObj?.active_delivery_id);
     }
   };
 
@@ -87,7 +95,6 @@ const useTracker = () => {
   return {
     packageData,
     deliveryData,
-
     loading,
     error,
     handleGetPackage,

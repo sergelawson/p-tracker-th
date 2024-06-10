@@ -36,27 +36,16 @@ export const WebSocketServer = (server: http.Server) => {
 
             if (delivery) {
               socket.send(
-                JSON.stringify({ type: "DELIVERY_DATA", data: delivery })
+                JSON.stringify({
+                  type: `DELIVERY_DATA_${parsedMessage.deliveryId}`,
+                  data: delivery,
+                })
               );
             } else {
               socket.send(
                 JSON.stringify({ type: "error", message: "Delivery not found" })
               );
             }
-
-            DeliveryModel.watch().on("change", (data) => {
-              if (
-                data?.operationType === "update" &&
-                data?.documentKey?._id == parsedMessage.deliveryId
-              ) {
-                socket.send(
-                  JSON.stringify({
-                    type: "DELIVERY_DATA",
-                    data: data?.updateDescription?.updatedFields,
-                  })
-                );
-              }
-            });
 
             break;
 
@@ -80,7 +69,10 @@ export const WebSocketServer = (server: http.Server) => {
             );
 
             socket.send(
-              JSON.stringify({ type: "DELIVERY_DATA", data: delivery_update })
+              JSON.stringify({
+                type: `DELIVERY_DATA_${parsedMessage.deliveryId}`,
+                data: delivery_update,
+              })
             );
 
             break;
@@ -92,6 +84,17 @@ export const WebSocketServer = (server: http.Server) => {
         }
       } catch (error: any) {
         socket.send(JSON.stringify({ type: "error", message: error.message }));
+      }
+    });
+
+    DeliveryModel.watch().on("change", (data) => {
+      if (data?.operationType === "update") {
+        socket.send(
+          JSON.stringify({
+            type: `DELIVERY_DATA_${data?.documentKey?._id}`,
+            data: data?.updateDescription?.updatedFields,
+          })
+        );
       }
     });
 
